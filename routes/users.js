@@ -6,19 +6,19 @@ var jwt_helper = require('../helpers/jwt');
 
 
 //   Get all the users
-router.get('/', jwt_helper.verify_admin, user_controller.index);
+router.get('/users', jwt_helper.verify_admin, user_controller.index);
 
 // Get a single user_controller
-router.get('/:id', jwt_helper.verify_normal, user_controller.user_detail);
+router.get('/users/:id', jwt_helper.verify_normal, user_controller.user_detail);
 
 // Create a user
-router.post('/', jwt_helper.verify_admin, user_controller.user_create_post);
+router.post('/users', jwt_helper.verify_admin, user_controller.user_signup);
 
 // Delete a user
-router.delete('/:id', jwt_helper.verify_admin, user_controller.user_delete)
+router.delete('/users/:id', jwt_helper.verify_admin, user_controller.user_delete)
 
 // Update user
-router.put('/:id', jwt_helper.verify_normal, user_controller.user_update_post)
+router.put('/users/:id', jwt_helper.verify_normal, user_controller.user_update_post)
 
 
 

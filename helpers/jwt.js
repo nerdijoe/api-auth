@@ -22,12 +22,7 @@ module.exports = {
     jwt.verify(req.headers.token, process.env.SECRET, (err, decoded) => {
       if(decoded) {
         console.log(`decoded data is: `, decoded);
-          next();
-        }
-        else {
-          res.send({message: `User need to sign in first.`})
-        }
-
+        next();
       } else {
         res.send(err);
       }

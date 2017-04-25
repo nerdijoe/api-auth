@@ -130,6 +130,9 @@ exports.user_signin = (req, res, next) => {
     }
 
   })
+  .catch (err => {
+    res.send(err.message);
+  })
 
 
   // generate token
