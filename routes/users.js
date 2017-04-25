@@ -1,24 +1,24 @@
 var express = require('express');
 var router = express.Router();
 var user_controller = require('../controllers/userController');
-
+var jwt_helper = require('../helpers/jwt');
 
 
 
 //   Get all the users
-router.get('/', user_controller.index);
+router.get('/', jwt_helper.verify_admin, user_controller.index);
 
 // Get a single user_controller
-router.get('/:id', user_controller.user_detail);
+router.get('/:id', jwt_helper.verify_normal, user_controller.user_detail);
 
 // Create a user
-router.post('/', user_controller.user_create_post);
+router.post('/', jwt_helper.verify_admin, user_controller.user_create_post);
 
 // Delete a user
-router.delete('/:id', user_controller.user_delete)
+router.delete('/:id', jwt_helper.verify_admin, user_controller.user_delete)
 
 // Update user
-router.put('/:id', user_controller.user_update_post)
+router.put('/:id', jwt_helper.verify_normal, user_controller.user_update_post)
 
 
 
