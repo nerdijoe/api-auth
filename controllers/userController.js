@@ -112,18 +112,22 @@ exports.user_signin = (req, res, next) => {
   // get user based on username, then check his password
   db.User.findOne({ where: {username: req.body.username}})
   .then (user => {
+    if(user) {
+      // verify password
+      if( passwordHash.verify(req.body.password, user.password) ) {
+        // generate token
+        var token = jwt.sign(
+          { username: user.username, email: user.email, role: user.role },
+          process.env.SECRET,
+          { expiresIn: '1h' }
+        );
+        console.log(`process.env.SECRET='${process.env.SECRET}'`)
+        res.send(token);
 
-    // verify password
-    if( passwordHash.verify(req.body.password, user.password) ) {
-      // generate token
-      var token = jwt.sign(
-        { username: user.username, email: user.email, role: user.role },
-        process.env.SECRET,
-        { expiresIn: '1h' }
-      );
-      console.log(`process.env.SECRET='${process.env.SECRET}'`)
-      res.send(token);
-
+      }
+      else {
+        res.send({message: `User input the wrong username and password.`});
+      }
     }
     else {
       res.send({message: `User input the wrong username and password.`});
