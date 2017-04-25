@@ -1,10 +1,16 @@
 # api-auth
 
+### User Model
+| Role | Description |
+|------|-------------|
+| 0    | Admin       |
+| 1    | Normal User |
+
 ###List of user routes:
 | Route           | HTTP     | Description                  |
 |-----------------|----------|------------------------------|
-| /api/signup      | GET      | Sign up with new user info            |
-| /api/signin      | GET      | Sign in while get an access token based on credentials            |
+| /api/signup      | POST      | Sign up with new user info            |
+| /api/signin      | POST      | Sign in while get an access token based on credentials            |
 | /api/users      | GET      | Get all the users info (admin only)            |
 | /api/users/:id  | GET      | Get a single user (admin and authenticated user)          |
 | /api/users      | POST     | Create a user (admin only)               |
